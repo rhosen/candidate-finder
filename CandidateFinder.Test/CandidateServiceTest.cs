@@ -16,10 +16,10 @@ namespace CandidateFinder.Test
         private readonly CandidateService _candidateService;
         private static string RustId = "3B85BE83-9B4E-4B15-9EB2-68363936CA04";
         private static string PythonId = "3B85BE83-9B4E-4B15-9EB2-68363936CA06";
-        private static string TypeScript = "3B85BE83-9B4E-4B15-9EB2-68363936CA05";
-        private static string JavaScript = "3B85BE83-9B4E-4B15-9EB2-68363936CA13";
-        private static string Kotlin = "3B85BE83-9B4E-4B15-9EB2-68363936CA07";
-        private static string CSharp = "3B85BE83-9B4E-4B15-9EB2-68363936CA11";
+        private static string TypeScriptId = "3B85BE83-9B4E-4B15-9EB2-68363936CA05";
+        private static string JavaScriptId = "3B85BE83-9B4E-4B15-9EB2-68363936CA13";
+        private static string KotlinId = "3B85BE83-9B4E-4B15-9EB2-68363936CA07";
+        private static string CSharpId = "3B85BE83-9B4E-4B15-9EB2-68363936CA11";
 
         public CandidateServiceTest()
         {
@@ -67,20 +67,20 @@ namespace CandidateFinder.Test
         {
             var criterias = new List<Experience>()
             {
-                new Experience(){TechnologyId = TypeScript, YearsOfExperience = 5},
-                new Experience(){TechnologyId = JavaScript, YearsOfExperience = 5},
-                new Experience(){TechnologyId = Kotlin, YearsOfExperience = 5}
+                new Experience(){TechnologyId = TypeScriptId, YearsOfExperience = 5},
+                new Experience(){TechnologyId = JavaScriptId, YearsOfExperience = 5},
+                new Experience(){TechnologyId = KotlinId, YearsOfExperience = 5}
             };
             var filtered = await _candidateService.FindMatch(criterias);
             Assert.Equal(1, filtered.Count);
         }
 
         [Fact]
-        public async Task ShouldReturn10_For4YearsCSHarpExperience()
+        public async Task ShouldReturn10_For4YearsCSharpExperience()
         {
             var criterias = new List<Experience>()
             {
-                new Experience(){TechnologyId = CSharp, YearsOfExperience = 4},
+                new Experience(){TechnologyId = CSharpId, YearsOfExperience = 4},
             };
             var filtered = await _candidateService.FindMatch(criterias);
             Assert.Equal(10, filtered.Count);
