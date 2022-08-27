@@ -9,16 +9,10 @@
 
   <ItemGroup>
     <None Remove="TestData\Candidates.json" />
-    <None Remove="TestData\Candidates2.json" />
     <None Remove="TestData\Technologies.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="TestData\Candidates2.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="TestData\Candidates.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
