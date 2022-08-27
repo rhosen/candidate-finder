@@ -9,6 +9,7 @@ namespace CandidateFinder.Web.DI
         public static IServiceCollection AddIFSService(this IServiceCollection services)
         {
             services.AddHttpClient<IDataService, DataService>();
+            services.AddScoped<ICandidateService, CandidateService>();
             return services;
         }
     }

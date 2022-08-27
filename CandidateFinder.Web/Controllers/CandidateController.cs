@@ -7,10 +7,15 @@ namespace CandidateFinder.Web.Controllers
     public class CandidateController : Controller
     {
         private readonly IDataService _dataService;
+        private readonly ICandidateService _candidateService;
 
-        public CandidateController(IDataService dataService)
+        public CandidateController(
+            IDataService dataService,
+            ICandidateService candidateService
+            )
         {
             _dataService = dataService;
+            _candidateService = candidateService;
         }
 
         public IActionResult Index()
@@ -29,21 +34,8 @@ namespace CandidateFinder.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> FindMatch([FromBody] List<Experience> criterias)
         {
-            var filtered = new List<Candidate>();
-            var candidates = await _dataService.GetCandidates();
-            var count = criterias.Count();
-            foreach (var candidate in candidates)
-            {
-                var sum = 0;
-                foreach (var criteria in criterias)
-                {
-                    var hasSkill = candidate.Experience.Any(x => x.TechnologyId == criteria.TechnologyId &&
-                                                            x.YearsOfExperience >= criteria.YearsOfExperience);
-                    if (hasSkill) sum++;
-                }
-                if (sum == count) filtered.Add(candidate);
-            }
-            return Json(filtered);
+            var result = await _candidateService.FindMatch(criterias);
+            return Json(result);
         }
     }
 }

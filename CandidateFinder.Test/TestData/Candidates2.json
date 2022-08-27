@@ -1,0 +1,34 @@
+[
+  {
+    "candidateId": "97662054-8f0f-4b9f-a7d9-2a8c599caa38",
+    "fullName": "Louis Prohaska",
+    "firstName": "Louis",
+    "lastName": "Prohaska",
+    "gender": 0,
+    "profilePicture": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/658.jpg",
+    "email": "Louis76@gmail.com",
+    "favoriteMusicGenre": "Hip Hop",
+    "dad": "Gregg Crooks",
+    "mom": "Mable Batz",
+    "canSwim": true,
+    "barcode": "4670127342961",
+    "experience": [
+      {
+        "technologyId": "3B85BE83-9B4E-4B15-9EB2-68363936CA11",
+        "yearsOfExperience": 3
+      },
+      {
+        "technologyId": "3B85BE83-9B4E-4B15-9EB2-68363936CA11",
+        "yearsOfExperience": 7
+      },
+      {
+        "technologyId": "3B85BE83-9B4E-4B15-9EB2-68363936CA08",
+        "yearsOfExperience": 3
+      },
+      {
+        "technologyId": "3B85BE83-9B4E-4B15-9EB2-68363936CA15",
+        "yearsOfExperience": 2
+      }
+    ]
+  }
+]

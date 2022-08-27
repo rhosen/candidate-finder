@@ -1,6 +1,5 @@
 ﻿using CandidateFinder.Web.Models;
 using CandidateFinder.Web.Utility;
-using Microsoft.Extensions.Options;
 
 namespace CandidateFinder.Web.Services
 {

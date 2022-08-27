@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateFinder.Web", "CandidateFinder.Web\CandidateFinder.Web.csproj", "{87865B42-A713-489C-8EDE-57D8FF9002DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandidateFinder.Web", "CandidateFinder.Web\CandidateFinder.Web.csproj", "{87865B42-A713-489C-8EDE-57D8FF9002DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateFinder.Test", "CandidateFinder.Test\CandidateFinder.Test.csproj", "{65D694F0-174B-47B8-952B-2FFD1AF204C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{87865B42-A713-489C-8EDE-57D8FF9002DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87865B42-A713-489C-8EDE-57D8FF9002DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87865B42-A713-489C-8EDE-57D8FF9002DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D694F0-174B-47B8-952B-2FFD1AF204C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D694F0-174B-47B8-952B-2FFD1AF204C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D694F0-174B-47B8-952B-2FFD1AF204C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D694F0-174B-47B8-952B-2FFD1AF204C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
