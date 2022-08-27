@@ -1,0 +1,230 @@
+﻿<h6 class="mt-5 mb-3">Add a criteria</h6>
+<div class="input-group mb-3">
+    <span class="input-group-text">Technology</span>
+    <select class="form-select" id="ddlTechnology"></select>
+    <span class="input-group-text">Experience</span>
+    <input type="number" class="form-control" placeholder="Experience" id="txtExperience" value=1>
+    <button class="btn btn-outline-success" type="button" id="btnAdd">Add to criteria</button>
+</div>
+<h6 class="mt-5 mb-3">Criteria List</h6>
+<div id="div-criteria-list"></div>
+<button class="btn btn-outline-primary" type="button" id="btnFind">Find Match</button>
+<h6 class="mt-5 mb-3">Matched Candidates</h6>
+<div id="div-candidate-list"></div>
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    View Accepted Candidates
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Accepted Candidates</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="div-selected-candidate-list"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+<script id="templateCriteria" type="text/vash">
+    <table id="tblCriteria" class="table table-stripped table-sm">
+        <thead>
+            <tr>
+                <th class="collapse">Technology Id</th>
+                <th>Name</th>
+                <th>Experience</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @@model.CriteriaList.forEach(function(item){
+            <tr>
+                <td class="techId collapse">@@item.TechnologyId</td>
+                <td class="">@@item.Name</td>
+                <td class="">@@item.YearsOfExperience</td>
+                <td>
+                    <button class="btn btn-outline-danger btnDelete" type="button">Delete</button>
+                </td>
+            </tr>
+            })
+        </tbody>
+    </table>
+</script>
+
+<script id="templateCandidate" type="text/vash">
+    <table id="tblCandidate" class="table table-stripped table-sm">
+        <thead>
+            <tr>
+                <th class="collapse">Candidate Id</th>
+                <th>Picture</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Accept</th>
+                <th>Reject</th>
+            </tr>
+        </thead>
+        <tbody>
+            @@model.CandidateList.forEach(function(item){
+            <tr>
+                <td class="candidateId collapse">@@item.candidateId</td>
+                <td class="">
+                    <img style="width:50px" src="@@item.profilePicture">
+                </td>
+                <td class="name">@@item.fullName</td>
+                <td class="email">@@item.email</td>
+                <td>
+                    <button class="btn btn-outline-success btnAccept" type="button">Accept</button>
+                </td>
+                 <td>
+                    <button class="btn btn-outline-danger btnReject" type="button">Reject</button>
+                </td>
+            </tr>
+            })
+        </tbody>
+    </table>
+</script>
+
+<script id="templateSelectedCandidate" type="text/vash">
+    <table id="tblSelectedCandidate" class="table table-stripped table-sm">
+        <thead>
+            <tr>
+                <th class="collapse">Candidate Id</th>
+                @*<th>Picture</th>*@
+                <th>Full Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @@model.SelectedCandidateList.forEach(function(item){
+            <tr>
+                <td class="collapse">@@item.CandidateId</td>
+                @*<td>
+                                        <img style="width:50px" src="@@item.ProfilePicture">
+                                    </td>*@
+                <td>@@item.FullName</td>
+                <td>@@item.Email</td>
+            </tr>
+            })
+        </tbody>
+    </table>
+</script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+<script type="text/javascript">
+
+    let _criteriaList = [];
+    let _selectedList = [];
+    let _candidateList = [];
+
+    $(document).ready(function() {
+        getTechnologies();
+        BindCriteria();
+    });
+
+    function getTechnologies(){
+        $.ajax({
+            url: '/Candidate/GetTechnologies',
+            type: "GET",
+            contentType: "application/json",
+            success: function (response) {
+                $.each(response, function (i, p) {
+                    $('#ddlTechnology').append($('<option></option>').val(p.guid).html(p.name));
+                });
+            }
+        });
+    }
+
+    $("#btnAdd").click(function(){
+        let obj = new Object();
+        obj.TechnologyId = $("#ddlTechnology").val();;
+        obj.Name = $("#ddlTechnology").children("option").filter(":selected").text();
+        obj.YearsOfExperience = $("#txtExperience").val();
+        if(obj.TechnologyId && obj.YearsOfExperience){
+            if(_criteriaList.findIndex(x=> x.TechnologyId == obj.TechnologyId) >= 0){
+                $.notify("This technology is already added. Please delete it to add it again.", "warn");
+            }else{
+                _criteriaList.push(obj);
+                BindCriteria();
+            }
+
+        }else if(!obj.TechnologyId){
+            $.notify("Please select a technology", "warn");
+        }else{
+            $.notify("Please enter years of experience", "warn");
+            $("#txtExperience").focus();
+        }
+    });
+
+    function BindCriteria() {
+        $('#div-criteria-list').empty().append(vash.compile($('#templateCriteria').text())({ CriteriaList: _criteriaList }));
+    }
+
+    $(document).on('click', '.btnDelete', function () {
+        let techId = $(this).parent().parent().find(".techId").eq(0).html().trim();
+        if (confirm("Are you sure?")) {
+            _criteriaList = _criteriaList.filter(x=> x.TechnologyId != techId);
+            BindCriteria();
+        }
+    });
+
+    $("#btnFind").click(function(){
+        if(_criteriaList.length < 1){
+            $.notify("Please add atleast one technology", "info");
+            return;
+        }
+        let criterias = JSON.stringify(_criteriaList);
+            $.ajax({
+            url: '/Candidate/FindMatch',
+            type: "POST",
+            data: criterias,
+            contentType: "application/json",
+            success: function (response) {
+                _candidateList = response;
+                BindCandidate(response);
+            }
+        });
+    })
+
+    function BindCandidate(result) {
+        $('#div-candidate-list').empty().append(vash.compile($('#templateCandidate').text())({ CandidateList: result }));
+        $('#tblCandidate').DataTable();
+    }
+
+    $(document).on('click', '.btnAccept', function () {
+        var obj = new Object();
+        obj.CandidateId = $(this).parent().parent().find(".candidateId").eq(0).html().trim();
+        obj.ProfilePicture = $(this).parent().parent().find(".candidateId").eq(0).html().trim();
+        obj.FullName= $(this).parent().parent().find(".name").eq(0).html().trim();
+        obj.Email= $(this).parent().parent().find(".email").eq(0).html().trim();
+        _selectedList.push(obj);
+        removeCandidate(obj.CandidateId);
+        BindSelectedCandidate();
+    });
+
+    $(document).on('click', '.btnReject', function () {
+        let candidateId = $(this).parent().parent().find(".candidateId").eq(0).html().trim();
+        removeCandidate(candidateId);
+    });
+
+    function removeCandidate(candidateId){
+        _candidateList = _candidateList.filter(x=> x.candidateId != candidateId);
+        BindCandidate(_candidateList);
+    }
+
+    function BindSelectedCandidate() {
+        $('#div-selected-candidate-list').empty().append(vash.compile($('#templateSelectedCandidate').text())({ SelectedCandidateList: _selectedList }));
+    }
+
+</script>
+
+}
