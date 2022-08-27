@@ -36,7 +36,7 @@
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Accepted Candidates</h5>
@@ -169,18 +169,17 @@
         obj.TechnologyId = $("#ddlTechnology").val();;
         obj.Name = $("#ddlTechnology").children("option").filter(":selected").text();
         obj.YearsOfExperience = $("#txtExperience").val();
-        if(obj.TechnologyId && obj.YearsOfExperience){
+        if(obj.TechnologyId && obj.YearsOfExperience && obj.YearsOfExperience > 0){
             if(_criteriaList.findIndex(x=> x.TechnologyId == obj.TechnologyId) >= 0){
                 $.notify("This technology is already added. Please delete it to add it again.", "warn");
             }else{
                 _criteriaList.push(obj);
                 BindCriteria();
             }
-
         }else if(!obj.TechnologyId){
             $.notify("Please select a technology", "warn");
         }else{
-            $.notify("Please enter years of experience", "warn");
+            $.notify("Invalid experience! Please enter experience.", "warn");
             $("#txtExperience").focus();
         }
     });
