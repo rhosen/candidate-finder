@@ -1,19 +1,40 @@
-﻿<h6 class="mt-5 mb-3">Add a criteria</h6>
-<div class="input-group mb-3">
-    <span class="input-group-text">Technology</span>
-    <select class="form-select" id="ddlTechnology"></select>
-    <span class="input-group-text">Experience</span>
-    <input type="number" class="form-control" placeholder="Experience" id="txtExperience" value=1>
-    <button class="btn btn-outline-success" type="button" id="btnAdd">Add to criteria</button>
+﻿<div class="row">
+    <div class="col-sm-5 p-3">
+        <div class="card">
+            <div class="card-header">Search Candidates</div>
+            <div class="card-body">
+                <h6 class="card-title">Add criteria(s) to find candidates:</h6>
+                <div class="input-group mb-3 mt-3">
+                    <span class="input-group-text">Technology</span>
+                    <select class="form-select" id="ddlTechnology"></select>
+                    <span class="input-group-text">Experience</span>
+                    <input type="number" class="form-control" placeholder="Experience" id="txtExperience" value=1>
+                    <button class="btn btn-outline-success" type="button" id="btnAdd">Add</button>
+                </div>
+                <h6 class="mt-5 mb-3">Criteria List</h6>
+                <hr />
+                <div id="div-criteria-list" class="table-responsive"></div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline-primary" type="button" id="btnFind">Find Match</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-7 p-3">
+        <div class="card">
+            <div class="card-header">Matched Candidates</div>
+            <div class="card-body">
+                <div id="div-candidate-list" class="table-responsive"></div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    View Accepted Candidates
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
-<h6 class="mt-5 mb-3">Criteria List</h6>
-<div id="div-criteria-list"></div>
-<button class="btn btn-outline-primary" type="button" id="btnFind">Find Match</button>
-<h6 class="mt-5 mb-3">Matched Candidates</h6>
-<div id="div-candidate-list"></div>
-<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    View Accepted Candidates
-</button>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -25,6 +46,7 @@
                 <div id="div-selected-candidate-list"></div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnClear">Clear</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
@@ -96,7 +118,6 @@
         <thead>
             <tr>
                 <th class="collapse">Candidate Id</th>
-                @*<th>Picture</th>*@
                 <th>Full Name</th>
                 <th>Email</th>
             </tr>
@@ -105,9 +126,6 @@
             @@model.SelectedCandidateList.forEach(function(item){
             <tr>
                 <td class="collapse">@@item.CandidateId</td>
-                @*<td>
-                                        <img style="width:50px" src="@@item.ProfilePicture">
-                                    </td>*@
                 <td>@@item.FullName</td>
                 <td>@@item.Email</td>
             </tr>
@@ -129,6 +147,8 @@
     $(document).ready(function() {
         getTechnologies();
         BindCriteria();
+        BindCandidate([]);
+        BindSelectedCandidate();
     });
 
     function getTechnologies(){
@@ -225,6 +245,10 @@
         $('#div-selected-candidate-list').empty().append(vash.compile($('#templateSelectedCandidate').text())({ SelectedCandidateList: _selectedList }));
     }
 
+     $(document).on('click', '#btnClear', function () {
+         _selectedList= [];
+         BindSelectedCandidate();
+    });
 </script>
 
 }
