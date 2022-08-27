@@ -1,5 +1,4 @@
 ﻿using CandidateFinder.Web.Models;
-using CandidateFinder.Web.Utility;
 
 namespace CandidateFinder.Web.Services
 {
@@ -20,7 +19,7 @@ namespace CandidateFinder.Web.Services
             var technologies = new List<Technology>();
             try
             {
-                technologies = await GetAsync<List<Technology>>(IFSConstant.GetTechnologies);
+                technologies = await GetAsync<List<Technology>>(Utility.Endpoint.GetTechnologies);
             }
             catch (Exception ex)
             {
@@ -34,7 +33,7 @@ namespace CandidateFinder.Web.Services
             var candidates = new List<Candidate>();
             try
             {
-                candidates = await GetAsync<List<Candidate>>(IFSConstant.GetCandidates);
+                candidates = await GetAsync<List<Candidate>>(Utility.Endpoint.GetCandidates);
             }
             catch (Exception ex)
             {
