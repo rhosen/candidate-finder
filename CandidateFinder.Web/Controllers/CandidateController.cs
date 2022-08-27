@@ -32,7 +32,7 @@ namespace CandidateFinder.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> FindMatch([FromBody] List<Experience> criterias)
+        public async Task<IActionResult> FindMatch([FromBody] IEnumerable<Experience> criterias)
         {
             var result = await _candidateService.FindMatch(criterias);
             return Json(result);

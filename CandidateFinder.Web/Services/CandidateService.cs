@@ -10,7 +10,7 @@ namespace CandidateFinder.Web.Services
         {
             _dataService = dataService;
         }
-        public async Task<IList<Candidate>> FindMatch(List<Experience> criterias)
+        public async Task<IList<Candidate>> FindMatch(IEnumerable<Experience> criterias)
         {
             var filtered = new List<Candidate>();
             var candidates = await _dataService.GetCandidates();
