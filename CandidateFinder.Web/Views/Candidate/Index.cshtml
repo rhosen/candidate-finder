@@ -208,8 +208,13 @@
             data: criterias,
             contentType: "application/json",
             success: function (response) {
-                _candidateList = response;
-                BindCandidate(response);
+                 _candidateList = response;
+                 BindCandidate(response);
+                if(response.length){
+                    $.notify("Total " + response.length + " candidate(s) found.", "success");
+                }else{
+                    $.notify("No candidates found", "info");
+                }
             }
         });
     })
