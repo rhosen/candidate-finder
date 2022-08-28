@@ -14,7 +14,7 @@ namespace CandidateFinder.Web.Services
             _logger = logger;
         }
        
-        public async Task<IList<Technology>> GetTechnologies()
+        public async Task<IList<Technology>> GetTechnologiesAsync()
         {
             var technologies = new List<Technology>();
             try
@@ -28,7 +28,7 @@ namespace CandidateFinder.Web.Services
             return technologies;
         }
 
-        public async Task<IList<Candidate>> GetCandidates()
+        public async Task<IList<Candidate>> GetCandidatesAsync()
         {
             var candidates = new List<Candidate>();
             try

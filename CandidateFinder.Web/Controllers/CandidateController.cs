@@ -26,7 +26,7 @@ namespace CandidateFinder.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTechnologies()
         {
-            var technlogies = await _dataService.GetTechnologies();
+            var technlogies = await _dataService.GetTechnologiesAsync();
             return Json(technlogies);
         }
 
@@ -34,7 +34,7 @@ namespace CandidateFinder.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> FindMatch([FromBody] IEnumerable<Experience> criterias)
         {
-            var result = await _candidateService.FindMatch(criterias);
+            var result = await _candidateService.FindMatchAsync(criterias);
             return Json(result);
         }
     }

@@ -35,7 +35,7 @@ namespace CandidateFinder.Test
             {
                 new Experience(){TechnologyId = RustId, YearsOfExperience = 5}
             };
-            var filtered = await _candidateService.FindMatch(criterias);
+            var filtered = await _candidateService.FindMatchAsync(criterias);
             Assert.Equal(4, filtered.Count);
         }
 
@@ -46,7 +46,7 @@ namespace CandidateFinder.Test
             {
                 new Experience(){TechnologyId = PythonId, YearsOfExperience = 8}
             };
-            var filtered = await _candidateService.FindMatch(criterias);
+            var filtered = await _candidateService.FindMatchAsync(criterias);
             Assert.Equal(8, filtered.Count);
         }
 
@@ -58,7 +58,7 @@ namespace CandidateFinder.Test
                 new Experience(){TechnologyId = RustId, YearsOfExperience = 10},
                 new Experience(){TechnologyId = PythonId, YearsOfExperience = 8}
             };
-            var filtered = await _candidateService.FindMatch(criterias);
+            var filtered = await _candidateService.FindMatchAsync(criterias);
             Assert.Equal(0, filtered.Count);
         }
 
@@ -71,7 +71,7 @@ namespace CandidateFinder.Test
                 new Experience(){TechnologyId = JavaScriptId, YearsOfExperience = 5},
                 new Experience(){TechnologyId = KotlinId, YearsOfExperience = 5}
             };
-            var filtered = await _candidateService.FindMatch(criterias);
+            var filtered = await _candidateService.FindMatchAsync(criterias);
             Assert.Equal(1, filtered.Count);
         }
 
@@ -82,7 +82,7 @@ namespace CandidateFinder.Test
             {
                 new Experience(){TechnologyId = CSharpId, YearsOfExperience = 4},
             };
-            var filtered = await _candidateService.FindMatch(criterias);
+            var filtered = await _candidateService.FindMatchAsync(criterias);
             Assert.Equal(10, filtered.Count);
         }
 
@@ -92,7 +92,7 @@ namespace CandidateFinder.Test
             var data = File.ReadAllText(path);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var candidates = JsonSerializer.Deserialize<IList<Candidate>>(data, options);
-            _dataService.Setup(x => x.GetCandidates()).Returns(Task.FromResult(candidates));
+            _dataService.Setup(x => x.GetCandidatesAsync()).Returns(Task.FromResult(candidates));
         }
     }
 }

@@ -4,6 +4,6 @@ namespace CandidateFinder.Web.Services
 {
     public interface ICandidateService
     {
-        Task<IList<Candidate>> FindMatch(IEnumerable<Experience> criterias);
+        Task<IList<Candidate>> FindMatchAsync(IEnumerable<Experience> criterias);
     }
 }

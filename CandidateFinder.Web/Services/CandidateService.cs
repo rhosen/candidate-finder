@@ -10,10 +10,10 @@ namespace CandidateFinder.Web.Services
         {
             _dataService = dataService;
         }
-        public async Task<IList<Candidate>> FindMatch(IEnumerable<Experience> criterias)
+        public async Task<IList<Candidate>> FindMatchAsync(IEnumerable<Experience> criterias)
         {
             var filtered = new List<Candidate>();
-            var candidates = await _dataService.GetCandidates();
+            var candidates = await _dataService.GetCandidatesAsync();
             var count = criterias.Count();
             foreach (var candidate in candidates)
             {
